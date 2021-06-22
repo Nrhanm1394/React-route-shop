@@ -3,21 +3,23 @@ import { Link, useLocation,useHistory} from 'react-router-dom'
 import axios from 'axios'
 import queryString from 'query-string'
 import { makeStyles } from '@material-ui/core/styles';
-import {Grid,Button,Typography,Paper,Container} from'@material-ui/core';
+import {Grid,Button,Paper,Container} from'@material-ui/core';
+
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+   
+  root: {
       '& .MuiTextField-root': {
         marginTop: 10,
-        width: '50ch',    
+        width: '50ch', 
       }, 
+      
     },
      paper: {
       padding: theme.spacing(1),
       margin: 'auto',
       maxWidth: '100%',
       background: 'SEASHELL',
-      
 
     },
 }));
@@ -75,7 +77,7 @@ const ProductList = () => {
 
             <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr'}}>
                   {products.map((data,id)  =>(
-                    <ProductDetail key={id} {...data} style={{border: '1px solid gray',display:'flex',flexDirection:'column',justifyContent:'space-around',alignItems:'center'}}>
+                    <ProductDetail key={id} {...data} style={{flexDirection:'column',justifyContent:'space-around'}}>
                     </ProductDetail>
                   ))}
             </div>
@@ -87,7 +89,7 @@ const ProductList = () => {
 
 const ProductDetail = (props) =>{
     const history = useHistory();
-  const {id,desc, image, name, price,category} = props;
+  const {image, name,id,desc,price,category} = props;
   const filterProductsByCategory = () => history.push(`/products/${id}`) 
   const classes = useStyles();
 
@@ -104,9 +106,9 @@ const ProductDetail = (props) =>{
                       <div>
                             <img src={image}  alt=" " style={{width:250,height:150}} />
                             <h5 >{name}</h5>  
-                            <h6 style={{textAlign:'left',margin:'15px'}}>{desc}</h6>
-                            <h6><div style={{textAlign:'left',margin:'15px'}}>Price : ฿{price}</div>
-                            <div style={{textAlign:'right',margin:'15px'}} >{category}</div> </h6>
+                            <h6 style={{textAlign:'left'}}>{desc}</h6>
+                            <h6><div style={{textAlign:'left'}}>Price : ฿{price}</div>
+                            <div style={{textAlign:'right'}} >{category}</div> </h6>
                       </div>
                         {/* <img src={image}  alt=" " style={{width:400,height:250}} />
                         <Typography gutterBottom variant="subtitle1" >

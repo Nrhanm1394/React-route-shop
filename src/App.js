@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { BrowserRouter , Route ,Link,Switch,Redirect} from 'react-router-dom';
+import { BrowserRouter , Route ,Switch,Redirect} from 'react-router-dom';
 import ProductList from './components/ProductList'; 
 import ProductDetail from './components/ProductDetail'
 
@@ -12,7 +12,7 @@ function App() {
   return (
    <BrowserRouter>
     
-    <div style={{width:'60%',margin:'50px auto'}}>
+    <div style={{width:'90%',margin:'10px auto'}}>
     <Switch>
       <Route path={"/products/:id"}> 
         <ProductDetail></ProductDetail>
@@ -24,7 +24,7 @@ function App() {
         <Redirect to="/products"></Redirect>
       </Route>
       <Route>
-      <NotFound/>
+        <NotFound/>
      </Route>
     </Switch>
    
