@@ -11,16 +11,15 @@ const NotFound = () => <div>NotFound page</div>
 function App() {
   return (
    <BrowserRouter>
-    
     <div style={{width:'90%',margin:'10px auto'}}>
     <Switch>
-      <Route path={"/products/:id"}> 
+      <Route  path={"/products/:id"}> 
         <ProductDetail></ProductDetail>
       </Route>
-      <Route exact path={"/products"}>
+      <Route  path={"/products"}>
         <ProductList></ProductList>
       </Route>
-        <Route exact path="/">
+        <Route  path="/">
         <Redirect to="/products"></Redirect>
       </Route>
       <Route>
@@ -28,15 +27,7 @@ function App() {
      </Route>
     </Switch>
    
-   
-    {/* <Switch>
-     <Route path='/products'>
-       <ProductList />
-     </Route>
-     <Route>
-      <NotFound/>
-     </Route>
-    </Switch> */}
+
    </div>
    </BrowserRouter>
   );

@@ -3,31 +3,39 @@ import { Link, useLocation,useHistory} from 'react-router-dom'
 import axios from 'axios'
 import queryString from 'query-string'
 import { makeStyles } from '@material-ui/core/styles';
-import {Grid,Button,Paper,Container} from'@material-ui/core';
+import {Grid,Button,Paper,Container,AppBar,Toolbar,Typography} from'@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
    
   root: {
       '& .MuiTextField-root': {
-        marginTop: 10,
+        marginTop: 1,
         width: '50ch', 
+
       }, 
-      
+    },
+    Container:{
+      margin: '5px auto',    
     },
      paper: {
-      padding: theme.spacing(1),
       margin: 'auto',
       maxWidth: '100%',
-      background: 'SEASHELL',
-
+      background: '#c2d6d6',
+    },
+    AppBar:{
+    
+     
+    },Toolbar:{
+      backgroundColor: '#c2d6d6',
+      
     },
 }));
 const ProductList = () => {
     const [products,setProducts] = useState ([])
     const {pathname,search } = useLocation()
     const { category } = queryString.parse(search)
-  
+    const classes = useStyles()
     useEffect(() => {
         axios
           .get(`http://localhost:5000/products`)
@@ -55,15 +63,21 @@ const ProductList = () => {
           });
       }, [category]);
     return (
-        <div>
-          <nav >
-            <Link to='/' ><Button >PRODUCTS</Button></Link>
-         </nav>
-            <header style={{textAlign:'center',marginBottom:'10px',fontSize:'20px'}}><h1>All Products</h1></header>
+      <div >  
+     <div>
+        <AppBar className={classes.AppBar}>
+          <Toolbar className={classes.Toolbar}>
+            <Typography > 
+            <Link to='/' ><h4>PRODUCTS</h4></Link>
+          </Typography>
+          </Toolbar>
+        </AppBar> 
+     </div>
        
             <div
-                style={{display:'flex',justifyContent:'space-around',marginBottom:'30px'}}    
+                style={{display:'flex',justifyContent:'space-around',marginBottom:'30px',paddingTop:'80px'}}    
             >
+              
                <Link to={`${pathname}?category=Headphone`}> <button>Headphone</button></Link>
                <Link to={`${pathname}?category=Watch`}> <button>Watch</button></Link>
                <Link to={`${pathname}?category=Camera`}> <button>Camera</button></Link>
@@ -86,37 +100,27 @@ const ProductList = () => {
     )
 
 }
-
 const ProductDetail = (props) =>{
-    const history = useHistory();
+  const history = useHistory()
   const {image, name,id,desc,price,category} = props;
   const filterProductsByCategory = () => history.push(`/products/${id}`) 
-  const classes = useStyles();
-
-
-
+  const classes = useStyles()
     return(
     
     <div  className={classes.root}>
-        <Container>  
-        <Paper className={classes.paper} >
+        <Container className={classes.Container}>  
+        <Paper variant="outlined" square  className={classes.paper} >
             <Grid >
+            <img src={image}  alt=" " style={{width:330,height:150}} />
                 <Grid >
+                
                     <Button onClick={filterProductsByCategory}>
                       <div>
-                            <img src={image}  alt=" " style={{width:250,height:150}} />
-                            <h5 >{name}</h5>  
-                            <h6 style={{textAlign:'left'}}>{desc}</h6>
-                            <h6><div style={{textAlign:'left'}}>Price : ฿{price}</div>
-                            <div style={{textAlign:'right'}} >{category}</div> </h6>
+                            <p style={{fontSize:'5mm'}}>{name}</p>  
+                            <h5 style={{textAlign:'left'}}>{desc}</h5>
+                            <div style={{textAlign:'left'}}>Price : ฿{price}</div>
+                            <div style={{textAlign:'right'}} >{category}</div> 
                       </div>
-                        {/* <img src={image}  alt=" " style={{width:400,height:250}} />
-                        <Typography gutterBottom variant="subtitle1" >
-                            <h2 >{name}</h2>  
-                            <p style={{textAlign:'left',margin:'15px'}}>{desc}</p>
-                            <h5><div style={{textAlign:'left',margin:'15px'}}>Price : ฿{price}</div>
-                            <div style={{textAlign:'right',margin:'15px'}} >{category}</div> </h5>
-                        </Typography>  */}
                     </Button>       
                 </Grid>
             </Grid>

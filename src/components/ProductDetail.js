@@ -1,23 +1,24 @@
 import React,{ useEffect, useState} from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams,useHistory } from 'react-router-dom';
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles';
-import {Grid,Button,Typography,Paper,Container} from'@material-ui/core';
+import {Grid,Button,Typography,Paper,Toolbar,AppBar,Link} from'@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+      paddingTop:'50px',
       '& .MuiTextField-root': {
       }, 
     },
-    Container:{
-      width: '300PX',
-      height: 'auto',
-      display: 'block',
-      margin: 'auto',    
-    },
      paper: {
-      margin: 'auto',
-      background: 'SEASHELL',
+      margin: '50px',
+      background: '#c2d6d6',
+      
+    },AppBar:{
+    height:'1px'
+     
+    },Toolbar:{
+      backgroundColor: '#c2d6d6',
     },
 }));
 
@@ -25,6 +26,8 @@ const ProductDetails = () => {
     const [products,setProducts] = useState ([])
     const {id} = useParams()
     const classes = useStyles()
+    const history = useHistory()
+    const filterProductsByCategory = () => history.push(`/products?category=${products.category}`)
     useEffect(() => {
         axios
           .get(`http://localhost:5000/products/${id}`)
@@ -38,23 +41,24 @@ const ProductDetails = () => {
           });
       }, [id]);
 
-
     return (
         <div  className={classes.root}>
-        <Container>
-          
+          <AppBar className={classes.AppBar}>
+          <Toolbar className={classes.Toolbar}>
+              <Button>
+                  <Typography onClick={filterProductsByCategory}>
+                    <h4>Category : {products.category}</h4>
+                  </Typography>
+              </Button>
+          </Toolbar>
+        </AppBar> 
+            
         <Paper className={classes.paper} >
             <Grid >
                 <Grid >
-                  <Button>
-                  <Typography>
-                    <h1 style={{margin:'15px'}} >Category : {products.category}</h1>
-                    </Typography>
-                  </Button>
                   <Button item>
-                  
                       <Typography>
-                      <img src={products.image}  alt=" " style={{width:500,height:300}} />
+                      <img src={products.image}  alt=" " style={{width:500,height:'auto'}} />
                       </Typography>
                         <Typography  >
                             <h1 style={{textAlign:'center',margin:'15px'}}>{products.name}</h1>  
@@ -65,7 +69,6 @@ const ProductDetails = () => {
                 </Grid>
             </Grid>
       </Paper>
-      </Container>
     </div>
   
     );
