@@ -45,14 +45,21 @@ const ProductDetails = () => {
           
         <Paper className={classes.paper} >
             <Grid >
-            <h1 style={{textAlign:'center',margin:'15px'}} >{products.category}</h1>
                 <Grid >
                   <Button>
-                        <img src={products.image}  alt=" " style={{width:500,height:300}} />
+                  <Typography>
+                    <h1 style={{margin:'15px'}} >Category : {products.category}</h1>
+                    </Typography>
+                  </Button>
+                  <Button item>
+                  
+                      <Typography>
+                      <img src={products.image}  alt=" " style={{width:500,height:300}} />
+                      </Typography>
                         <Typography  >
-                            <h2 style={{textAlign:'center',margin:'15px'}}>{products.name}</h2>  
-                            <p style={{textAlign:'center',margin:'15px'}}>{products.desc}</p>
-                            <h3 style={{textAlign:'left',margin:'15px'}}>Price : ฿{products.price} </h3>
+                            <h1 style={{textAlign:'center',margin:'15px'}}>{products.name}</h1>  
+                            <p style={{textAlign:'left',margin:'30px'}}>{products.desc}</p>
+                            <h2 style={{textAlign:'left',margin:'15px'}}>Price : ฿{products.price} </h2>
                         </Typography> 
                         </Button>
                 </Grid>
